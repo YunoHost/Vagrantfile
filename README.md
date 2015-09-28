@@ -101,7 +101,9 @@ Next run the postinstall by cli or into your browser
 ```bash
 vagrant ssh stable8
 sudo yunohost tools postinstall
-
+Main domain: yuno-s8.local
+New administration password: 
+Confirm new administration password:
 ```
 
 ### Browser
