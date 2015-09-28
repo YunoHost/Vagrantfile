@@ -1,43 +1,9 @@
 # yunohost-vagrant
-Vagrantfile to create yunohost box jessie/wheezy and stable/testing/unstable.
 
-You can build the image or use directly box in prebuild directory.
-
-## Build boxes from debian boxes
-- Install vagrant and the configure_networks plugin
-```bash
-vagrant plugin install configure_networks
-```
-- Add debian boxes in vagrant
-```bash
-vagrant box add debian/jessie64 https://atlas.hashicorp.com/debian/boxes/jessie64/versions/8.2.0/providers/virtualbox.box
-vagrant box add debian/wheezy64 https://atlas.hashicorp.com/debian/boxes/wheezy64/versions/7.9.0/providers/virtualbox.box
-```
-- Download the vagrant file to build from debian boxes
-```bash
-wget https://raw.githubusercontent.com/zamentur/yunohost-vagrant/master/Vagrantfile
-```
-- Run the box you need by calling vagrant up DISTRIB+DEBIAN_NUMBER
-```bash
-vagrant up stable8
-```
-
-DISTRIB = stable | testing | unstable
-DEBIAN_NUMBER = 7 | 8
-
-- You can use it by calling
-```bash
-vagrant ssh stable8
-```
-
-- OR you can package it to use it more quickly in future:
-```bash
-vagrant package --output ./prebuild/yunohost-stable8.box
-vagrant add yunohost/stable8 ./prebuild/yunohost-stable8.box
-```
+Vagrantfile to use yunohost box jessie/wheezy and stable/testing/unstable.
 
 
-## Use prebuild boxes
+## How use these yunohost boxes ?
 - Install vagrant and the configure_networks plugin
 ```bash
 vagrant plugin install configure_networks
@@ -55,7 +21,7 @@ vagrant box add yunohost/unstable7 https://atlas.hashicorp.com/yunohost/boxes/un
 
 - Download the vagrant file located in prebuild directory
 ```bash
-wget https://raw.githubusercontent.com/zamentur/yunohost-vagrant/master/prebuild/Vagrantfile
+wget https://raw.githubusercontent.com/zamentur/yunohost-vagrant/master/Vagrantfile
 ```
 
 - Run the box you need by calling vagrant up DISTRIB+DEBIAN_NUMBER
@@ -100,3 +66,39 @@ Confirm new administration password:
 
 ### Browser
 Call the good domain in your browser : https://yuno-XY.local and follow the instructions.
+
+
+
+## How build these boxes yourself instead of using prebuild boxes ?
+- Install vagrant and the configure_networks plugin
+```bash
+vagrant plugin install configure_networks
+```
+- Add debian boxes in vagrant
+```bash
+vagrant box add debian/jessie64 https://atlas.hashicorp.com/debian/boxes/jessie64/versions/8.2.0/providers/virtualbox.box
+vagrant box add debian/wheezy64 https://atlas.hashicorp.com/debian/boxes/wheezy64/versions/7.9.0/providers/virtualbox.box
+```
+- Download the vagrant file to build from debian boxes
+```bash
+wget https://raw.githubusercontent.com/zamentur/yunohost-vagrant/master/prebuild/Vagrantfile
+```
+- Run the box you need by calling vagrant up DISTRIB+DEBIAN_NUMBER
+```bash
+vagrant up stable8
+```
+
+DISTRIB = stable | testing | unstable
+DEBIAN_NUMBER = 7 | 8
+
+- You can use it by calling
+```bash
+vagrant ssh stable8
+```
+
+- OR you can package it to use it more quickly in future:
+```bash
+vagrant package --output ./yunohost-stable8.box
+vagrant add yunohost/stable8 ./yunohost-stable8.box
+```
+
