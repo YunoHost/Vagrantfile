@@ -99,6 +99,6 @@ vagrant ssh stable8
 - OR you can package it to use it more quickly in future:
 ```bash
 vagrant package --output ./yunohost-stable8.box
-vagrant add yunohost/stable8 ./yunohost-stable8.box
+vagrant box add yunohost/stable8 ./yunohost-stable8.box
 ```
 
