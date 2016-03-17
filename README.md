@@ -32,7 +32,7 @@ vagrant box add yunohost/unstable7 https://atlas.hashicorp.com/yunohost/boxes/un
 
 - Download the main Vagrant file
 ```bash
-wget https://raw.githubusercontent.com/zamentur/yunohost-vagrant/master/Vagrantfile
+wget https://raw.githubusercontent.com/Yunohost/yunohost-vagrant/master/Vagrantfile
 ```
 
 - Run the box you need by calling vagrant up `DISTRIB+DEBIAN_NUMBER`

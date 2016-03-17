@@ -14,7 +14,7 @@ vagrant box add debian/wheezy64 https://atlas.hashicorp.com/debian/boxes/wheezy6
 Download the vagrant file to build from debian boxes
 
 ```bash
-wget https://raw.githubusercontent.com/zamentur/yunohost-vagrant/master/prebuild/Vagrantfile
+wget https://raw.githubusercontent.com/Yunohost/yunohost-vagrant/master/prebuild/Vagrantfile
 ```
 
 ## Run your homemade boxes
