@@ -1,15 +1,24 @@
-# yunohost-vagrant
+# YunoHost Vagrantfile
 
-Vagrantfile to use yunohost box jessie/wheezy and stable/testing/unstable.
+Vagrantfile to use YunoHost boxes for Jessie/Wheezy, using the
+stable/testing/unstable releases.
 
+## Prerequisite
+
+Install Vagrant and Virtualbox provider
+
+```bash
+apt-get install vagrant virtualbox
+```
 
 ## How use these yunohost boxes ?
-- Install vagrant and the configure_networks plugin
+
+- Install Vagrant and the configure_networks plugin
 ```bash
 vagrant plugin install configure_networks
 ```
 
-- Add prebuild yunohost boxes in vagrant
+- Add prebuild YunoHost boxes in vagrant
 ```bash
 vagrant box add yunohost/stable8 https://atlas.hashicorp.com/yunohost/boxes/stable8/versions/1.0.0/providers/virtualbox.box
 vagrant box add yunohost/testing8 https://atlas.hashicorp.com/yunohost/boxes/testing8/versions/1.0.0/providers/virtualbox.box
@@ -19,18 +28,20 @@ vagrant box add yunohost/testing7 https://atlas.hashicorp.com/yunohost/boxes/tes
 vagrant box add yunohost/unstable7 https://atlas.hashicorp.com/yunohost/boxes/unstable7/versions/1.0.0/providers/virtualbox.box
 ```
 
+*Note:* Debian Wheezy (7) support is now discontinued for next stable releases.
+
 - Download the main Vagrant file
 ```bash
 wget https://raw.githubusercontent.com/zamentur/yunohost-vagrant/master/Vagrantfile
 ```
 
-- Run the box you need by calling vagrant up DISTRIB+DEBIAN_NUMBER
+- Run the box you need by calling vagrant up `DISTRIB+DEBIAN_NUMBER`
 ```bash
 vagrant up stable8
 ```
 
-DISTRIB = stable | testing | unstable
-DEBIAN_NUMBER = 7 | 8
+- `DISTRIB`: `stable`, `testing` and `unstable`.
+- `DEBIAN_NUMBER`: `8` for Jessie, `7` for Wheezy (discontinued).
 
 - You can use it by calling
 ```bash
@@ -48,6 +59,7 @@ To test on your computer, add this lines to your /etc/hosts .
 192.168.33.71 yuno-t7.local
 192.168.33.72 yuno-u7.local
 ```
+
 VMs have different ip to be able to run twice.
 You can put your own domain name and change the ip in the vagrant file.
 
@@ -65,40 +77,15 @@ Confirm new administration password:
 ```
 
 ### Browser
-Call the good domain in your browser : https://yuno-XY.local and follow the instructions.
+Go to the coresponding domain in your browser and follow the instructions.
 
-
+- https://yuno-s8.local for stable8
+- https://yuno-t8.local for testing8
+- https://yuno-u8.local for unstable8
+- https://yuno-s7.local for stable7
+- https://yuno-t7.local for testing7
+- https://yuno-u7.local for unstable7
 
 ## How build these boxes yourself instead of using prebuild boxes ?
-- Install vagrant and the configure_networks plugin
-```bash
-vagrant plugin install configure_networks
-```
-- Add debian boxes in vagrant
-```bash
-vagrant box add debian/jessie64 https://atlas.hashicorp.com/debian/boxes/jessie64/versions/8.2.0/providers/virtualbox.box
-vagrant box add debian/wheezy64 https://atlas.hashicorp.com/debian/boxes/wheezy64/versions/7.9.0/providers/virtualbox.box
-```
-- Download the vagrant file to build from debian boxes
-```bash
-wget https://raw.githubusercontent.com/zamentur/yunohost-vagrant/master/prebuild/Vagrantfile
-```
-- Run the box you need by calling vagrant up DISTRIB+DEBIAN_NUMBER
-```bash
-vagrant up stable8
-```
 
-DISTRIB = stable | testing | unstable
-DEBIAN_NUMBER = 7 | 8
-
-- You can use it by calling
-```bash
-vagrant ssh stable8
-```
-
-- OR you can package it to use it more quickly in future:
-```bash
-vagrant package --output ./yunohost-stable8.box
-vagrant box add yunohost/stable8 ./yunohost-stable8.box
-```
-
+See README.md file in the [prebuild](prebuild/) folder.
