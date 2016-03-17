@@ -19,7 +19,7 @@ vagrant box add yunohost/testing7 https://atlas.hashicorp.com/yunohost/boxes/tes
 vagrant box add yunohost/unstable7 https://atlas.hashicorp.com/yunohost/boxes/unstable7/versions/1.0.0/providers/virtualbox.box
 ```
 
-- Download the vagrant file located in prebuild directory
+- Download the main Vagrant file
 ```bash
 wget https://raw.githubusercontent.com/zamentur/yunohost-vagrant/master/Vagrantfile
 ```
