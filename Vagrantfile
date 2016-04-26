@@ -6,7 +6,10 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
+  # Default folder sharing
   config.vm.synced_folder ".", "/vagrant"
+  # Force guest type, because YunoHost /etc/issue can't be tuned
+  config.vm.guest = :debian
   
   config.vm.define "stable8", primary: true do |stable8|
     stable8.vm.box = "yunohost/stable8"
