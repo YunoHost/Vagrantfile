@@ -25,19 +25,5 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     unstable8.vm.box = "yunohost/unstable8"
     unstable8.vm.network :private_network, ip: "192.168.33.82"
   end
-  
-  config.vm.define "stable7", primary: true do |stable7|
-    stable7.vm.box = "yunohost/stable7"
-    stable7.vm.network :private_network, ip: "192.168.33.70"
-  end
 
-  config.vm.define "testing7" do |testing7|
-    testing7.vm.box = "yunohost/testing7"
-    testing7.vm.network :private_network, ip: "192.168.33.71"
-  end
-
-  config.vm.define "unstable7" do |unstable7|
-    unstable7.vm.box = "yunohost/unstable7"
-    unstable7.vm.network :private_network, ip: "192.168.33.72"
-  end
 end

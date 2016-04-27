@@ -64,34 +64,5 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
     unstable8.vm.network :private_network, ip: "192.168.33.82"
   end
-  
-  # Debian Wheezy with YunoHost stable release
-  config.vm.define "stable7", primary: true do |stable7|
-    stable7.vm.box = "debian/wheezy64"
-    stable7.vm.provision "shell" do |s|
-      s.inline = $script
-      s.args   = "'stable'"
-    end
-    stable7.vm.network :private_network, ip: "192.168.33.70"
-  end
 
-  # Debian Wheezy with YunoHost testing release
-  config.vm.define "testing7" do |testing7|
-    testing7.vm.box = "debian/wheezy64"
-    testing7.vm.provision "shell" do |s|
-      s.inline = $script
-      s.args   = "'testing'"
-    end
-    testing7.vm.network :private_network, ip: "192.168.33.71"
-  end
-
-  # Debian Wheezy with YunoHost unstable (nightly) release
-  config.vm.define "unstable7" do |unstable7|
-    unstable7.vm.box = "debian/wheezy64"
-    unstable7.vm.provision "shell" do |s|
-      s.inline = $script
-      s.args   = "'unstable'"
-    end
-    unstable7.vm.network :private_network, ip: "192.168.33.72"
-  end
 end
