@@ -16,7 +16,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     stable.vm.network :private_network, ip: "192.168.33.80"
   end
 
-  config.vm.define "testing" do |testing8|
+  config.vm.define "testing" do |testing|
     testing.vm.box = "opi/yunohost-testing"
     testing.vm.network :private_network, ip: "192.168.33.81"
   end
