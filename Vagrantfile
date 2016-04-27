@@ -11,19 +11,19 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Force guest type, because YunoHost /etc/issue can't be tuned
   config.vm.guest = :debian
   
-  config.vm.define "stable8", primary: true do |stable8|
-    stable8.vm.box = "yunohost/stable8"
-    stable8.vm.network :private_network, ip: "192.168.33.80"
+  config.vm.define "stable", primary: true do |stable|
+    stable.vm.box = "opi/yunohost-stable"
+    stable.vm.network :private_network, ip: "192.168.33.80"
   end
 
-  config.vm.define "testing8" do |testing8|
-    testing8.vm.box = "yunohost/testing8"
-    testing8.vm.network :private_network, ip: "192.168.33.81"
+  config.vm.define "testing" do |testing8|
+    testing.vm.box = "opi/yunohost-testing"
+    testing.vm.network :private_network, ip: "192.168.33.81"
   end
 
-  config.vm.define "unstable8" do |unstable8|
-    unstable8.vm.box = "yunohost/unstable8"
-    unstable8.vm.network :private_network, ip: "192.168.33.82"
+  config.vm.define "unstable" do |unstable|
+    unstable.vm.box = "opi/yunohost-unstable"
+    unstable.vm.network :private_network, ip: "192.168.33.82"
   end
 
 end
