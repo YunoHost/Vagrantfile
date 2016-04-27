@@ -37,32 +37,32 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   
   # Debian Jessie with YunoHost stable release
   config.vm.define "stable", primary: true do |stable|
-    stable8.vm.box = "debian/jessie64"
-    stable8.vm.provision "shell" do |s|
+    stable.vm.box = "debian/jessie64"
+    stable.vm.provision "shell" do |s|
       s.inline = $script
       s.args   = "'stable'"
     end
-    stable8.vm.network :private_network, ip: "192.168.33.80"
+    stable.vm.network :private_network, ip: "192.168.33.80"
   end
 
   # Debian Jessie with YunoHost testing release
   config.vm.define "testing" do |testing|
-    testing8.vm.box = "debian/jessie64"
-    testing8.vm.provision "shell" do |s|
+    testing.vm.box = "debian/jessie64"
+    testing.vm.provision "shell" do |s|
       s.inline = $script
       s.args   = "'testing'"
     end
-    testing8.vm.network :private_network, ip: "192.168.33.81"
+    testing.vm.network :private_network, ip: "192.168.33.81"
   end
 
   # Debian Jessie with YunoHost unstable (nightly) release
   config.vm.define "unstable" do |unstable|
-    unstable8.vm.box = "debian/jessie64"
-    unstable8.vm.provision "shell" do |s|
+    unstable.vm.box = "debian/jessie64"
+    unstable.vm.provision "shell" do |s|
       s.inline = $script
       s.args   = "'unstable'"
     end
-    unstable8.vm.network :private_network, ip: "192.168.33.82"
+    unstable.vm.network :private_network, ip: "192.168.33.82"
   end
 
 end
