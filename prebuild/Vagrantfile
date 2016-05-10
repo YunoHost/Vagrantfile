@@ -10,6 +10,9 @@ export DEBIAN_FRONTEND=noninteractive
 # Define root password
 echo -e "yunohost\nyunohost" | sudo passwd root
 
+# Allow sudo removal (YunoHost use sudo-ldap)
+export SUDO_FORCE_REMOVE=yes
+
 # Upgrade guest (done in install script)
 # sudo apt-get update
 # sudo apt-get -y --force-yes upgrade
