@@ -24,7 +24,7 @@ sudo bash -c 'echo yunohost.yunohost.org > /etc/hostname'
 sudo bash -c 'echo 127.0.1.1 yunohost.yunohost.org yunohost >> /etc/hosts'
 
 # Install YunoHost
-wget https://raw.githubusercontent.com/YunoHost/install_script/master/install_yunohostv2 -q -O /tmp/install_yunohost
+wget https://raw.githubusercontent.com/YunoHost/install_script/master/install_yunohost -q -O /tmp/install_yunohost
 sudo bash /tmp/install_yunohost -a -d $1
 
 # Cleanup
