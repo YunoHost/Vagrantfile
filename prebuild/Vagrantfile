@@ -7,6 +7,11 @@ VAGRANTFILE_API_VERSION = "2"
 $script = <<SCRIPT
 export DEBIAN_FRONTEND=noninteractive
 
+# Configure guest hostname
+sudo hostname yunohost.yunohost.org
+sudo bash -c 'echo yunohost.yunohost.org > /etc/hostname'
+sudo bash -c 'echo 127.0.1.1 yunohost.yunohost.org yunohost >> /etc/hosts'
+
 # Define root password
 echo -e "yunohost\nyunohost" | sudo passwd root
 
@@ -17,11 +22,6 @@ export SUDO_FORCE_REMOVE=yes
 # sudo apt-get update
 # sudo apt-get -y --force-yes upgrade
 # sudo apt-get -y --force-yes dist-upgrade
-
-# Configure guest hostname
-sudo hostname yunohost.yunohost.org
-sudo bash -c 'echo yunohost.yunohost.org > /etc/hostname'
-sudo bash -c 'echo 127.0.1.1 yunohost.yunohost.org yunohost >> /etc/hosts'
 
 # Install YunoHost
 wget https://raw.githubusercontent.com/YunoHost/install_script/master/install_yunohost -q -O /tmp/install_yunohost
