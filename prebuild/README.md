@@ -19,16 +19,16 @@ wget https://raw.githubusercontent.com/Yunohost/yunohost-vagrant/master/prebuild
 
 ## Run your homemade boxes
 
-Run the box you need by calling `vagrant up DISTRIB+DEBIAN_NUMBER`
+Run the box you need by calling `vagrant up DEBIAN_CODENAME-YUNOHOST_VERSION`
 
 ```bash
-vagrant up stable8
+vagrant up jessie-stable
 ```
 
+- `DEBIAN_CODENAME`: Only `jessie` for now.
 - `DISTRIB`: `stable`, `testing` and `unstable`.
-- `DEBIAN_NUMBER`: `8` for Jessie, `7` for Wheezy (discontinued).
 
-You can now log into your box with `vagrant ssh stable8`
+You can now log into your box with `vagrant ssh jessie-stable`
 
 ## Package your own boxes
 
