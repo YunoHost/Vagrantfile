@@ -8,9 +8,9 @@ $script = <<SCRIPT
 export DEBIAN_FRONTEND=noninteractive
 
 # Configure guest hostname
+sudo bash -c 'echo 127.0.1.1 yunohost.yunohost.org yunohost >> /etc/hosts'
 sudo hostname yunohost.yunohost.org
 sudo bash -c 'echo yunohost.yunohost.org > /etc/hostname'
-sudo bash -c 'echo 127.0.1.1 yunohost.yunohost.org yunohost >> /etc/hosts'
 
 # Define root password
 echo -e "yunohost\nyunohost" | sudo passwd root
