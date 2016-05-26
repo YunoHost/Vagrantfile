@@ -34,6 +34,7 @@ You can now log into your box with `vagrant ssh jessie-stable`
 You can package it to use it more quickly later:
 
 ```bash
-vagrant package --output ./my-yunohost-stable8.box
-vagrant box add my-yunohost/stable8 ./my-yunohost-stable8.box
+vagrant up jessie-stable
+vagrant package jessie-stable  --output ./my-yunohost-stable.box
+vagrant box add my-yunohost/stable ./my-yunohost-stable.box
 ```
