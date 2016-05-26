@@ -12,17 +12,17 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.guest = :debian
   
   config.vm.define "stable", primary: true do |stable|
-    stable.vm.box = "opi/yunohost-stable"
+    stable.vm.box = "yunohost/yunohost-jessie-stable"
     stable.vm.network :private_network, ip: "192.168.33.80"
   end
 
   config.vm.define "testing" do |testing|
-    testing.vm.box = "opi/yunohost-testing"
+    testing.vm.box = "yunohost/yunohost-jessie-testing"
     testing.vm.network :private_network, ip: "192.168.33.81"
   end
 
   config.vm.define "unstable" do |unstable|
-    unstable.vm.box = "opi/yunohost-unstable"
+    unstable.vm.box = "yunohost/yunohost-jessie-unstable"
     unstable.vm.network :private_network, ip: "192.168.33.82"
   end
 
