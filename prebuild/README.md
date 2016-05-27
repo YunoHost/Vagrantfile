@@ -3,7 +3,7 @@
 ## Get Debian base boxes
 
 ```bash
-vagrant box add debian/jessie64 https://atlas.hashicorp.com/debian/boxes/jessie64/versions/8.4.0/providers/virtualbox.box
+vagrant box add debian/contrib-jessie64
 ```
 
 *Note:* You can only add Jessie base box as Wheezy support is now discontinued for YunoHost

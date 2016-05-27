@@ -40,7 +40,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   
   # Debian Jessie with YunoHost stable release
   config.vm.define "jessie-stable", primary: true do |stable|
-    stable.vm.box = "debian/jessie64"
+    stable.vm.box = "debian/contrib-jessie64"
     stable.vm.provision "shell" do |s|
       s.inline = $script
       s.args   = "'stable'"
@@ -50,7 +50,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Debian Jessie with YunoHost testing release
   config.vm.define "jessie-testing" do |testing|
-    testing.vm.box = "debian/jessie64"
+    testing.vm.box = "debian/contrib-jessie64"
     testing.vm.provision "shell" do |s|
       s.inline = $script
       s.args   = "'testing'"
@@ -60,7 +60,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Debian Jessie with YunoHost unstable (nightly) release
   config.vm.define "jessie-unstable" do |unstable|
-    unstable.vm.box = "debian/jessie64"
+    unstable.vm.box = "debian/contrib-jessie64"
     unstable.vm.provision "shell" do |s|
       s.inline = $script
       s.args   = "'unstable'"
