@@ -13,7 +13,7 @@ vagrant box add debian/contrib-jessie64
 Download the vagrant file to build from debian boxes
 
 ```bash
-wget https://raw.githubusercontent.com/Yunohost/yunohost-vagrant/master/prebuild/Vagrantfile
+wget https://raw.githubusercontent.com/YunoHost/Vagrantfile/master/prebuild/Vagrantfile
 ```
 
 ## Run your homemade boxes
