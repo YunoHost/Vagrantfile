@@ -25,5 +25,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     unstable.vm.box = "yunohost/jessie-unstable"
     unstable.vm.network :private_network, ip: "192.168.33.82"
   end
+  
+  ### START AUTOMATIC YNH-DEV ZONE ###
+  ### END AUTOMATIC YNH-DEV ###
+
 
 end
