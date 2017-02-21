@@ -37,6 +37,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.synced_folder ".", "/vagrant"
   # Force guest type, because YunoHost /etc/issue can be tuned
   config.vm.guest = :debian
+  # Force first network device to be cable connected, not connected by default on Virtualbox
+  config.vm.provider "virtualbox" do |vb|
+    vb.customize ["modifyvm", :id, "--cableconnected1", "on"]
+  end
   
   # Debian Jessie with YunoHost stable release
   config.vm.define "jessie-stable", primary: true do |stable|
