@@ -25,7 +25,7 @@ vagrant box add yunohost/jessie-amd64-stable https://build.yunohost.org/yunohost
 vagrant box add yunohost/jessie-amd64-testing https://build.yunohost.org/yunohost-jessie-amd64-testing.box
 vagrant box add yunohost/jessie-amd64-unstable https://build.yunohost.org/yunohost-jessie-amd64-unstable.box
 ```
-*For 64 bit boxes*
+*For 32 bit boxes*
 ```bash
 vagrant box add yunohost/jessie-i386-stable https://build.yunohost.org/yunohost-jessie-i386-stable.box
 vagrant box add yunohost/jessie-i386-testing https://build.yunohost.org/yunohost-jessie-i386-testing.box
