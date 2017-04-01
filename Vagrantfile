@@ -7,7 +7,11 @@ VAGRANTFILE_API_VERSION = "2"
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Default folder sharing
-  config.vm.synced_folder ".", "/vagrant"
+  config.vm.synced_folder ".", "/vagrant", id: "vagrant-root",
+  owner: "root",
+  group: "sudo",
+  mount_options: ["dmode=775,fmode=774"]
+
   # Force guest type, because YunoHost /etc/issue can't be tuned
   config.vm.guest = :debian
   
