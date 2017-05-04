@@ -37,9 +37,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.synced_folder ".", "/vagrant"
   # Force guest type, because YunoHost /etc/issue can be tuned
   config.vm.guest = :debian
+  # Force first network device to be cable connected, not connected by default on Virtualbox
+  config.vm.provider "virtualbox" do |vb|
+    vb.customize ["modifyvm", :id, "--cableconnected1", "on"]
+  end
   
-  # Debian Jessie with YunoHost stable release
-  config.vm.define "jessie-stable", primary: true do |stable|
+  # Debian Jessie 64 bits with YunoHost stable release
+  config.vm.define "jessie-amd64-stable", primary: true do |stable|
     stable.vm.box = "debian/contrib-jessie64"
     stable.vm.provision "shell" do |s|
       s.inline = $script
@@ -48,8 +52,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     stable.vm.network :private_network, ip: "192.168.33.80"
   end
 
-  # Debian Jessie with YunoHost testing release
-  config.vm.define "jessie-testing" do |testing|
+  # Debian Jessie 64 bits with YunoHost testing release
+  config.vm.define "jessie-amd64-testing" do |testing|
     testing.vm.box = "debian/contrib-jessie64"
     testing.vm.provision "shell" do |s|
       s.inline = $script
@@ -58,14 +62,44 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     testing.vm.network :private_network, ip: "192.168.33.81"
   end
 
-  # Debian Jessie with YunoHost unstable (nightly) release
-  config.vm.define "jessie-unstable" do |unstable|
+  # Debian Jessie 64 bits with YunoHost unstable (nightly) release
+  config.vm.define "jessie-amd64-unstable" do |unstable|
     unstable.vm.box = "debian/contrib-jessie64"
     unstable.vm.provision "shell" do |s|
       s.inline = $script
       s.args   = "'unstable'"
     end
     unstable.vm.network :private_network, ip: "192.168.33.82"
+  end
+
+  # Debian Jessie 32 bits with YunoHost stable release
+  config.vm.define "jessie-i386-stable" do |stable|
+    stable.vm.box = "bento/debian-8.6-i386"
+    stable.vm.provision "shell" do |s|
+      s.inline = $script
+      s.args   = "'stable'"
+    end
+    stable.vm.network :private_network, ip: "192.168.33.83"
+  end
+
+  # Debian Jessie 32 bits with YunoHost testing release
+  config.vm.define "jessie-i386-testing" do |testing|
+    testing.vm.box = "bento/debian-8.6-i386"
+    testing.vm.provision "shell" do |s|
+      s.inline = $script
+      s.args   = "'testing'"
+    end
+    testing.vm.network :private_network, ip: "192.168.33.84"
+  end
+
+  # Debian Jessie 32 bits with YunoHost unstable (nightly) release
+  config.vm.define "jessie-i386-unstable" do |unstable|
+    unstable.vm.box = "bento/debian-8.6-i386"
+    unstable.vm.provision "shell" do |s|
+      s.inline = $script
+      s.args   = "'unstable'"
+    end
+    unstable.vm.network :private_network, ip: "192.168.33.85"
   end
 
 end
