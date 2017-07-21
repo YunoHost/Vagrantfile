@@ -1,6 +1,6 @@
 # Build your own YunoHost Vagrant box
 
-## Get Debian base boxes
+## Get Debian base boxes
 
 ```bash
 vagrant box add debian/contrib-jessie64
@@ -16,7 +16,7 @@ Download the vagrant file to build from debian boxes
 wget https://raw.githubusercontent.com/YunoHost/Vagrantfile/master/prebuild/Vagrantfile
 ```
 
-## Run your homemade boxes
+## Run your homemade boxes
 
 Run the box you need by calling `vagrant up DEBIAN_CODENAME-YUNOHOST_VERSION`
 
@@ -29,7 +29,7 @@ vagrant up jessie-stable
 
 You can now log into your box with `vagrant ssh jessie-stable`
 
-## Package your own boxes
+## Package your own boxes
 
 You can package it to use it more quickly later:
 
