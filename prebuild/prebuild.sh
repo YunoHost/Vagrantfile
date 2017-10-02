@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DEBIAN_VERSION="jessie"
+DEBIAN_VERSION="stretch"
 YNH_VERSION=$1
 case $YNH_VERSION in
     stable|testing|unstable) echo "Building YunoHost $YNH_VERSION box.";;

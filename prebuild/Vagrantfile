@@ -19,12 +19,12 @@ echo -e "yunohost\nyunohost" | sudo passwd root
 export SUDO_FORCE_REMOVE=yes
 
 # Upgrade guest (done in install script)
-# sudo apt-get update
-# sudo apt-get -y --force-yes upgrade
-# sudo apt-get -y --force-yes dist-upgrade
+sudo apt-get update
+sudo apt-get -y --force-yes upgrade
+sudo apt-get -y --force-yes dist-upgrade
 
 # Install YunoHost
-wget https://raw.githubusercontent.com/YunoHost/install_script/master/install_yunohost -q -O /tmp/install_yunohost
+wget https://raw.githubusercontent.com/YunoHost/install_script/stretch2/install_yunohost -q -O /tmp/install_yunohost
 sudo bash /tmp/install_yunohost -a -d $1
 
 # Cleanup
@@ -33,39 +33,49 @@ SCRIPT
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
-  # Default folder sharing
-  config.vm.synced_folder ".", "/vagrant"
-  # Force guest type, because YunoHost /etc/issue can be tuned
-  config.vm.guest = :debian
-  
-  # Debian Jessie with YunoHost stable release
-  config.vm.define "jessie-stable", primary: true do |stable|
-    stable.vm.box = "debian/contrib-jessie64"
-    stable.vm.provision "shell" do |s|
-      s.inline = $script
-      s.args   = "'stable'"
-    end
-    stable.vm.network :private_network, ip: "192.168.33.80"
-  end
+#  # Default folder sharing
+#  config.vm.synced_folder ".", "/vagrant"
+#  # Force guest type, because YunoHost /etc/issue can be tuned
+#  config.vm.guest = :debian
+#  
+#  # Debian Jessie with YunoHost stable release
+#  config.vm.define "jessie-stable", primary: true do |stable|
+#    stable.vm.box = "debian/contrib-jessie64"
+#    stable.vm.provision "shell" do |s|
+#      s.inline = $script
+#      s.args   = "'stable'"
+#    end
+#    stable.vm.network :private_network, ip: "192.168.33.80"
+#  end
+#
+#  # Debian Jessie with YunoHost testing release
+#  config.vm.define "jessie-testing" do |testing|
+#    testing.vm.box = "debian/contrib-jessie64"
+#    testing.vm.provision "shell" do |s|
+#      s.inline = $script
+#      s.args   = "'testing'"
+#    end
+#    testing.vm.network :private_network, ip: "192.168.33.81"
+#  end
+#
+#  # Debian Jessie with YunoHost unstable (nightly) release
+#  config.vm.define "jessie-unstable" do |unstable|
+#    unstable.vm.box = "debian/contrib-jessie64"
+#    unstable.vm.provision "shell" do |s|
+#      s.inline = $script
+#      s.args   = "'unstable'"
+#    end
+#    unstable.vm.network :private_network, ip: "192.168.33.82"
+#  end
 
-  # Debian Jessie with YunoHost testing release
-  config.vm.define "jessie-testing" do |testing|
-    testing.vm.box = "debian/contrib-jessie64"
-    testing.vm.provision "shell" do |s|
-      s.inline = $script
-      s.args   = "'testing'"
-    end
-    testing.vm.network :private_network, ip: "192.168.33.81"
-  end
-
-  # Debian Jessie with YunoHost unstable (nightly) release
-  config.vm.define "jessie-unstable" do |unstable|
-    unstable.vm.box = "debian/contrib-jessie64"
+  # Debian Stretch with YunoHost unstable (nightly) release
+  config.vm.define "stretch-unstable" do |unstable|
+    unstable.vm.box = "debian/stretch64"
     unstable.vm.provision "shell" do |s|
       s.inline = $script
       s.args   = "'unstable'"
     end
-    unstable.vm.network :private_network, ip: "192.168.33.82"
+    unstable.vm.network :private_network, ip: "192.168.33.93"
   end
 
 end
