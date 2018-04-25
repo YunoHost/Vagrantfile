@@ -17,6 +17,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   
   config.vm.define "unstable" do |unstable|
     unstable.vm.box = "yunohost/jessie-unstable"
+    unstable.vm.box_url = "https://build.yunohost.org/yunohost-unstable.box"
     unstable.vm.network :private_network, ip: "192.168.33.82"
   end
   
