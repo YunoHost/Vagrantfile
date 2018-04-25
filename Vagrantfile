@@ -14,7 +14,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Force guest type, because YunoHost /etc/issue can't be tuned
   config.vm.guest = :debian
-  
+
   config.vm.define "unstable" do |unstable|
     unstable.vm.box = "yunohost/jessie-unstable"
     unstable.vm.box_url = "https://build.yunohost.org/yunohost-unstable.box"
@@ -26,7 +26,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     stretch_unstable.vm.box_url = "https://build.yunohost.org/yunohost-stretch-unstable.box"
     stretch_unstable.vm.network :private_network, ip: "192.168.33.83"
   end
-  
+
   ### START AUTOMATIC YNH-DEV ZONE ###
   ### END AUTOMATIC YNH-DEV ###
 
