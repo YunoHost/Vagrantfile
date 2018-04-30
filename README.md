@@ -20,9 +20,8 @@ vagrant plugin install configure_networks
 
 - Add prebuild YunoHost boxes in vagrant
 ```bash
-vagrant box add yunohost/jessie-stable https://build.yunohost.org/yunohost-jessie-stable.box
-vagrant box add yunohost/jessie-testing https://build.yunohost.org/yunohost-jessie-testing.box
-vagrant box add yunohost/jessie-unstable https://build.yunohost.org/yunohost-jessie-unstable.box
+vagrant box add yunohost/jessie-unstable https://build.yunohost.org/yunohost-unstable.box
+vagrant box add yunohost/stretch-unstable https://build.yunohost.org/yunohost-stretch-unstable.box
 ```
 
 - Download the main Vagrant file
@@ -32,19 +31,18 @@ wget https://raw.githubusercontent.com/Yunohost/yunohost-vagrant/master/Vagrantf
 
 - Run the box you need by calling vagrant up `DISTRIB`, example:
 ```bash
-vagrant up stable
+vagrant up unstable
 ```
 
-- `DISTRIB`: `stable`, `testing` and `unstable`.
+- `DISTRIB`: `unstable` and `stretch-unstable`.
 
 
 ## Associated ip
 
 To test on your computer, add this lines to your /etc/hosts .
 ```
-192.168.33.80 ynh-stable.local
-192.168.33.81 ynh-testing.local
-192.168.33.82 ynh-unstable.local
+192.168.33.82 ynh.local
+192.168.33.82 ynh-stretch.local
 ```
 
 VMs have different ip to be able to run twice.
@@ -57,15 +55,14 @@ After doing vagrant ssh run the postinstall by cli or into your browser
 ### CLI
 ```bash
 vagrant ssh stable
-sudo yunohost tools postinstall -d ynh-stable.local -p myAdminPassword
+sudo yunohost tools postinstall -d ynh.local -p myAdminPassword
 ```
 
 ### Browser
 Go to the coresponding domain in your browser and follow the instructions.
 
-- https://ynh-stable.local for stable
-- https://ynh-testing.local for testing
-- https://ynh-unstable.local for unstable
+- https://ynh.local for stretch
+- https://ynh-stretch.local for unstable
 
 ## How build these boxes yourself instead of using prebuild boxes ?
 
