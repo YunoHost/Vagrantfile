@@ -1,12 +1,7 @@
 #!/bin/bash
 
 DEBIAN_VERSION="stretch"
-YNH_VERSION=$1
-case $YNH_VERSION in
-    stable|testing|unstable) echo "Building YunoHost $YNH_VERSION box.";;
-    --help|-h) echo "./prebuid.sh <ynh-version>. ynh-version could be stable, testing or unstable.";exit 0;;
-    *)             echo "Unknown YunoHost version: $YNH_VERSION";exit 1;;
-esac
+YNH_VERSION="unstable"
 
 # Compute box name
 BOX="$DEBIAN_VERSION-$YNH_VERSION"
