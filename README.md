@@ -5,10 +5,24 @@ stable/testing/unstable releases.
 
 ## Prerequisite
 
+### With VirtualBox
 Install Vagrant and Virtualbox provider
 
 ```bash
 apt-get install vagrant virtualbox
+```
+
+### With LXC
+On Linux Mint 19
+```bash
+apt update
+apt install vagrant lxc-templates lxctl lxc cgroup-lite redir bridge-utils libc6 libvirt-clients debootstrap
+vagrant plugin install vagrant-lxc
+echo "cgroup        /sys/fs/cgroup        cgroup        defaults    0    0" | sudo tee -a /etc/fstab
+sudo mount /sys/fs/cgroup
+lxc-checkconfig 
+echo "veth" | sudo tee -a /etc/modules
+wget https://raw.githubusercontent.com/fgrehm/vagrant-lxc/2a5510b34cc59cd3cb8f2dcedc3073852d841101/lib/vagrant-lxc/driver.rb -o .vagrant.d/gems/2.5.1/gems/vagrant-lxc-1.4.2/lib/vagrant-lxc/driver.rb
 ```
 
 ## How use these yunohost boxes ?
