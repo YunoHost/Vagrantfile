@@ -33,11 +33,7 @@ SCRIPT
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
-#  # Default folder sharing
-#  config.vm.synced_folder ".", "/vagrant"
-#  # Force guest type, because YunoHost /etc/issue can be tuned
-#  config.vm.guest = :debian
-
+  
   # Debian Jessie with YunoHost unstable (nightly) release
   config.vm.define "jessie-unstable" do |unstable|
     unstable.vm.box = "debian/contrib-jessie64"
@@ -45,17 +41,42 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       s.inline = $script
       s.args   = "'unstable'"
     end
-    unstable.vm.network :private_network, ip: "192.168.33.82"
+    unstable.vm.provider "virtualbox" do |vb|
+      vb.vm.network :private_network, ip: "192.168.33.82"
+    end
+    unstable.vm.provider "lxc" do |lxc|
+      lxc.vm.network :private_network, ip: "192.168.33.82", lxc__bridge_name: 'lxcbr0'
+    end
   end
 
   # Debian Stretch with YunoHost unstable (nightly) release
-  config.vm.define "stretch-unstable" do |unstable|
-    unstable.vm.box = "debian/stretch64"
-    unstable.vm.provision "shell" do |s|
+  config.vm.define "stretch-unstable" do |stretch_unstable|
+    stretch_unstable.vm.box = "debian/stretch64"
+    stretch_unstable.vm.provision "shell" do |s|
       s.inline = $script
       s.args   = "'unstable'"
     end
-    unstable.vm.network :private_network, ip: "192.168.33.93"
+    stretch_unstable.vm.provider "virtualbox" do |vb|
+      vb.vm.network :private_network, ip: "192.168.33.93"
+    end
+    stretch_unstable.vm.provider "lxc" do |lxc|
+      lxc.vm.network :private_network, ip: "192.168.33.93", lxc__bridge_name: 'lxcbr0'
+    end
+  end
+
+  # Debian Buster with YunoHost unstable (nightly) release
+  config.vm.define "buster-unstable" do |buster_unstable|
+    buster_unstable.vm.box = "debian/testing64"
+    buster_unstable.vm.provision "shell" do |s|
+      s.inline = $script
+      s.args   = "'unstable'"
+    end
+    buster_unstable.vm.provider "virtualbox" do |vb|
+      vb.vm.network :private_network, ip: "192.168.33.94"
+    end
+    buster_unstable.vm.provider "lxc" do |lxc|
+      lxc.vm.network :private_network, ip: "192.168.33.94", lxc__bridge_name: 'lxcbr0'
+    end
   end
 
 end
