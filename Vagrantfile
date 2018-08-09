@@ -4,69 +4,50 @@
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
 VAGRANTFILE_API_VERSION = "2"
 
+NETWORK = "192.168.33."
+
+
+HOSTS = {
+   "unstable" => ["82", "jessie-unstable"],
+   "stretch-unstable" => ["83", "stretch-unstable"],
+   "buster-unstable" => ["84", "buster-unstable"],
+   ### START AUTOMATIC YNH-DEV ZONE ###
+   ### END AUTOMATIC YNH-DEV ZONE ###
+}
+
+
+
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   
   # Force guest type, because YunoHost /etc/issue can't be tuned
   config.vm.guest = :debian
-
   
-  config.vm.provider "virtualbox" do |vb|
-    # Default folder sharing
-    vb.vm.synced_folder ".", "/vagrant", id: "vagrant-root",
-    owner: "root",
-    group: "sudo",
-    mount_options: ["dmode=775,fmode=774"]
-  
-    vb.vm.define "unstable" do |unstable|
-      unstable.vm.box = "yunohost/jessie-unstable"
-      unstable.vm.box_url = "https://build.yunohost.org/yunohost-unstable.box"
-      unstable.vm.network :private_network, ip: "192.168.33.82"
-    end
-
-    vb.vm.define "stretch-unstable" do |stretch_unstable|
-      stretch_unstable.vm.box = "yunohost/stretch-unstable"
-      stretch_unstable.vm.box_url = "https://build.yunohost.org/yunohost-stretch-unstable.box"
-      stretch_unstable.vm.network :private_network, ip: "192.168.33.83"
-    end
+  HOSTS.each do | (name, cfg) |
+    ipaddr, version = cfg
     
-    vb.vm.define "buster-unstable" do |buster_unstable|
-      buster_unstable.vm.box = "yunohost/buster-unstable"
-      buster_unstable.vm.box_url = "https://build.yunohost.org/yunohost-buster-unstable.box"
-      buster_unstable.vm.network :private_network, ip: "192.168.33.84"
+    config.vm.define name do |machine|
+      machine.vm.box = "yunohost/" + version
+      # Force guest type, because YunoHost /etc/issue can't be tuned
+      machine.vm.guest = :debian
+
+      machine.vm.provider "virtualbox" do |vbox|
+        vbox.vm.box_url = "https://build.yunohost.org/yunohost-" + version + ".box" 
+        vbox.vm.synced_folder ".", "/vagrant", id: "vagrant-root",
+        owner: "root",
+        group: "sudo",
+        mount_options: ["dmode=775,fmode=774"]
+        vbox.vm.network 'private_network', ip: NETWORK + ipaddr
+        vbox.name = name
+      end
+
+      machine.vm.provider "lxc" do |lxc|
+        config.vm.box_url = "https://build.yunohost.org/yunohost-" + version + "-lxc.box" 
+        config.vm.synced_folder ".", "/vagrant", id: "vagrant-root"
+        config.vm.network :private_network, ip: NETWORK + ipaddr, lxc__bridge_name: 'lxcbr0' 
+      end
     end
-
-    ### START AUTOMATIC YNH-DEV VIRTUALBOX ZONE ###
-    ### END AUTOMATIC YNH-DEV ###
-
-  end
   
-  config.vm.provider "lxc" do |lxc|
-    # Default folder sharing
-    lxc.vm.synced_folder ".", "/vagrant", id: "vagrant-root"
   
-    lxc.vm.define "unstable" do |unstable|
-      unstable.vm.box = "yunohost/jessie-unstable"
-      unstable.vm.box_url = "https://build.yunohost.org/yunohost-jessie-unstable-lxc.box"
-      unstable.vm.network :private_network, ip: "192.168.33.82", lxc__bridge_name: 'lxcbr0'
-    end
-
-    lxc.vm.define "stretch-unstable" do |stretch_unstable|
-      stretch_unstable.vm.box = "yunohost/stretch-unstable"
-      stretch_unstable.vm.box_url = "https://build.yunohost.org/yunohost-stretch-unstable-lxc.box"
-      stretch_unstable.vm.network :private_network, ip: "192.168.33.83", lxc__bridge_name: 'lxcbr0'
-    end
-    
-    lxc.vm.define "buster-unstable" do |buster_unstable|
-      buster_unstable.vm.box = "yunohost/buster-unstable"
-      buster_unstable.vm.box_url = "https://build.yunohost.org/yunohost-buster-unstable-lxc.box"
-      buster_unstable.vm.network :private_network, ip: "192.168.33.84", lxc__bridge_name: 'lxcbr0'
-    end
- 
-    ### START AUTOMATIC YNH-DEV LXC ZONE ###
-    ### END AUTOMATIC YNH-DEV ###
-  
-  end
-
-
+  end # HOSTS-each
 
 end
