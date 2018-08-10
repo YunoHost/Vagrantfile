@@ -31,52 +31,32 @@ sudo bash /tmp/install_yunohost -a -d $1
 sudo apt-get clean -y
 SCRIPT
 
+NETWORK = "192.168.33."
+
+HOSTS = {
+   "jessie-unstable" => ["82", "contrib-jessie64"],
+   "stretch-unstable" => ["83", "stretch64"],
+   "buster-unstable" => ["84", "testing64"],
+}
+
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
+  HOSTS.each do | (name, cfg) |
   
-  # Debian Jessie with YunoHost unstable (nightly) release
-  config.vm.define "jessie-unstable" do |unstable|
-    unstable.vm.box = "debian/contrib-jessie64"
-    unstable.vm.provision "shell" do |s|
-      s.inline = $script
-      s.args   = "'unstable'"
-    end
-    unstable.vm.provider "virtualbox" do |vb|
-      vb.vm.network :private_network, ip: "192.168.33.82"
-    end
-    unstable.vm.provider "lxc" do |lxc|
-      lxc.vm.network :private_network, ip: "192.168.33.82", lxc__bridge_name: 'lxcbr0'
-    end
-  end
-
-  # Debian Stretch with YunoHost unstable (nightly) release
-  config.vm.define "stretch-unstable" do |stretch_unstable|
-    stretch_unstable.vm.box = "debian/stretch64"
-    stretch_unstable.vm.provision "shell" do |s|
-      s.inline = $script
-      s.args   = "'unstable'"
-    end
-    stretch_unstable.vm.provider "virtualbox" do |vb|
-      vb.vm.network :private_network, ip: "192.168.33.93"
-    end
-    stretch_unstable.vm.provider "lxc" do |lxc|
-      lxc.vm.network :private_network, ip: "192.168.33.93", lxc__bridge_name: 'lxcbr0'
+    ipaddr, box = cfg
+    
+    config.vm.define name do |machine|
+      machine.vm.box = "debian/" + box
+      machine.vm.provision "shell" do |s|
+        s.inline = $script
+        s.args   = "'unstable'"
+      end
+      machine.vm.provider "virtualbox" do |vb|
+        machine.vm.network :private_network, ip: NETWORK + ipaddr
+      end
+      machine.vm.provider "lxc" do |lxc|
+        machine.vm.network :private_network, ip: NETWORK + ipaddr, lxc__bridge_name: 'lxcbr0'
+      end
     end
   end
-
-  # Debian Buster with YunoHost unstable (nightly) release
-  config.vm.define "buster-unstable" do |buster_unstable|
-    buster_unstable.vm.box = "debian/testing64"
-    buster_unstable.vm.provision "shell" do |s|
-      s.inline = $script
-      s.args   = "'unstable'"
-    end
-    buster_unstable.vm.provider "virtualbox" do |vb|
-      vb.vm.network :private_network, ip: "192.168.33.94"
-    end
-    buster_unstable.vm.provider "lxc" do |lxc|
-      lxc.vm.network :private_network, ip: "192.168.33.94", lxc__bridge_name: 'lxcbr0'
-    end
-  end
-
 end
