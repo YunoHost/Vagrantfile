@@ -3,6 +3,7 @@
 
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
 VAGRANTFILE_API_VERSION = "2"
+YUNOHOST_VERSION_DEFAULT = "unstable"
 
 $script = <<SCRIPT
 export DEBIAN_FRONTEND=noninteractive
@@ -19,9 +20,9 @@ echo -e "yunohost\nyunohost" | sudo passwd root
 export SUDO_FORCE_REMOVE=yes
 
 # Upgrade guest (done in install script)
-sudo apt-get update
-sudo apt-get -y --force-yes upgrade
-sudo apt-get -y --force-yes dist-upgrade
+#sudo apt-get update
+#sudo apt-get -y --force-yes upgrade
+#sudo apt-get -y --force-yes dist-upgrade
 
 # Install YunoHost
 wget https://raw.githubusercontent.com/YunoHost/install_script/stretch/install_yunohost -q -O /tmp/install_yunohost
@@ -29,6 +30,10 @@ sudo bash /tmp/install_yunohost -a -d $1
 
 # Cleanup
 sudo apt-get clean -y
+
+# Reset SSH key for vagrant user
+wget https://raw.githubusercontent.com/hashicorp/vagrant/master/keys/vagrant.pub -q -O /home/vagrant/.ssh/authorized_keys
+
 SCRIPT
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
@@ -38,24 +43,24 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 #  # Force guest type, because YunoHost /etc/issue can be tuned
 #  config.vm.guest = :debian
 
-  # Debian Jessie with YunoHost unstable (nightly) release
-  config.vm.define "jessie-unstable" do |unstable|
-    unstable.vm.box = "debian/contrib-jessie64"
-    unstable.vm.provision "shell" do |s|
+  # Debian Jessie with YunoHost release
+  config.vm.define "jessie" do |jessie|
+    jessie.vm.box = "debian/contrib-jessie64"
+    jessie.vm.provision "shell" do |s|
       s.inline = $script
-      s.args   = "'unstable'"
+      s.args   = "'" + ( ENV['YUNOHOST_VERSION'] || YUNOHOST_VERSION_DEFAULT )  + "'"
     end
-    unstable.vm.network :private_network, ip: "192.168.33.82"
+    jessie.vm.network :private_network, ip: "192.168.33.82"
   end
 
-  # Debian Stretch with YunoHost unstable (nightly) release
-  config.vm.define "stretch-unstable" do |unstable|
-    unstable.vm.box = "debian/stretch64"
-    unstable.vm.provision "shell" do |s|
+  # Debian Stretch with YunoHost release
+  config.vm.define "stretch" do |stretch|
+    stretch.vm.box = "debian/stretch64"
+    stretch.vm.provision "shell" do |s|
       s.inline = $script
-      s.args   = "'unstable'"
+      s.args   = "'" + ( ENV['YUNOHOST_VERSION'] || YUNOHOST_VERSION_DEFAULT )  + "'"
     end
-    unstable.vm.network :private_network, ip: "192.168.33.93"
+    stretch.vm.network :private_network, ip: "192.168.33.93"
   end
 
 end
