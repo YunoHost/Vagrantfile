@@ -36,4 +36,16 @@ vagrant box add yunohost/unstable ./yunohost-unstable-stretch.box
 
 * You need to use vagrant-libvirt master (build from source)
 
-`VAGRANT_LIBVIRT_VIRT_SYSPREP_OPERATIONS="defaults,-ssh-userdir,-ssh-hostkeys,-lvm-uuids" vagrant package stretch --output ./yunohost-unstable-stretch.box`
+1. `git clone https://github.com/vagrant-libvirt/vagrant-libvirt.git`
+1. `cd vagrant-libvirt`
+1. `VAGRANT_VERSION=v2.2.6 rake build`
+1. `vagrant plugin install pkg/vagrant-libvirt-0.0.45.gem`
+
+Then
+
+1. `vagrant up stretch`
+1. `VAGRANT_LIBVIRT_VIRT_SYSPREP_OPERATIONS="defaults,-ssh-userdir,-ssh-hostkeys,-lvm-uuids" vagrant package stretch --output ./yunohost-unstable-stretch.box`
+1. `vagrant box remove yunohost/unstable`
+1. Be sure to remove a old one if you have `sudo virsh vol-delete yunohost-VAGRANTSLASH-unstable_vagrant_box_image_0.img --pool default`
+1. `vagrant box add ./yunohost-unstable-stretch.box --name yunohost/unstable`
+
